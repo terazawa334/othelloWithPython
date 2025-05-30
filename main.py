@@ -24,6 +24,9 @@ class OthelloApp:
         self.info_label = tk.Label(root, text="", font=("Helvetica", 14))
         self.info_label.grid(row=1, column=0, sticky="w", padx=10)
 
+        self.message_label = tk.Label(root, text="", font=("Helvetica", 12), fg="blue")
+        self.message_label.grid(row=2, column=0, columnspan=2)
+
         self.reset_button = tk.Button(root, text="リセット", command=self.reset_game)
         self.reset_button.grid(row=1, column=1, sticky="e", padx=10)
 
@@ -182,8 +185,10 @@ class OthelloApp:
         # CPUのターン（白）
         if self.turn == WHITE:
             if self.has_valid_moves(WHITE):
+                self.message_label.config(text="")
                 self.root.after(500, self.cpu_turn)
             else:
+                self.message_label.config(text="白は置けないためパスします")
                 self.turn = BLACK
                 self.update_info()
 
